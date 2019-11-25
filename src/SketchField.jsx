@@ -58,6 +58,8 @@ class SketchField extends PureComponent {
     className: PropTypes.string,
     // Style options to pass to container div of canvas
     style: PropTypes.object,
+
+    backgroundImage: PropTypes.string
   };
 
   static defaultProps = {
@@ -571,7 +573,9 @@ class SketchField extends PureComponent {
       value,
       undoSteps,
       defaultValue,
-      backgroundColor
+      backgroundColor,
+      backgroundImage
+
     } = this.props;
 
     let canvas = this._fc = new fabric.Canvas(this._canvas/*, {
@@ -584,6 +588,10 @@ class SketchField extends PureComponent {
 
     // set initial backgroundColor
     this._backgroundColor(backgroundColor)
+
+    if (backgroundImage) {
+      this.setBackgroundFromDataUrl(backgroundImage);
+    }
 
     let selectedTool = this._tools[tool];
     selectedTool.configureCanvas(this.props);
